@@ -2,7 +2,7 @@
 
 UF VIVO has more than 66,000 date time values, but they represent only 7,700 distinct dates.  Treat
 dates as first class entities.  If two dates with different URI have the same datetime value and
-datetime percisions, they are the same date.  So merge and standardize.
+datetime precisions, they are the same date.  So merge and standardize.
 
 ## Process
 

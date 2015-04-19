@@ -1,12 +1,14 @@
 """
     absolute_dates.py -- convert the data store from duplicated dates to
     absolute date time value entities.  All date time values become first
-    class objects in VIVO, reusable and invertable.
+    class objects in VIVO, reusable and invertible.
 
     Version 0.0 2013-12-03 MC
     --  Complete first draft
     Version 0.1 2014-08-23 MC
     --  Upgrading to current coding practices
+    Version 0.2 2015-04-19 MC
+    --  Upgrade to rdflib
 
     To Do
     Test merge_uri
@@ -14,9 +16,9 @@
 
 
 __author__ = "Michael Conlon"
-__copyright__ = "Copyright 2014, University of Florida"
+__copyright__ = "Copyright 2015, University of Florida"
 __license__ = "BSD 3-Clause license"
-__version__ = "0.1"
+__version__ = "0.2"
 
 
 from vivofoundation import rdf_header
@@ -70,7 +72,7 @@ def make_multidate_dictionary(datetime_precision="vivo:yearPrecision",
             multidate_dictionary[dtv].append(uri)
         else:
             multidate_dictionary[dtv] = [uri]
-        i = i + 1
+        i += 1
     return multidate_dictionary
 
 
@@ -83,7 +85,7 @@ srdf = rdf_header()
 
 # for datetime_precision in ["vivo:yearPrecision", "vivo:yearMonthPrecision",
 #                       "vivo:yearMonthDayPrecision"]:
-for datetime_precision in ["vivo:yearMonthPrecision"]:
+for datetime_precision in ["vivo:yearMonthDayPrecision"]:
     date_dict = make_multidate_dictionary(datetime_precision, debug=True)
 
     for dtv in sorted(date_dict.keys()):
@@ -100,12 +102,12 @@ for datetime_precision in ["vivo:yearMonthPrecision"]:
     #             ardf = ardf + add
     #             srdf = srdf + sub
     #
-    # # Fill in the missing dates
-    #
-    # for date_value in range(date_range, datePrecision):
-    #     if date not in date_dict:
-    #         add = make_datetime_rdf(date_value, datetime_precision)
-    #         ardf = ardf + add
+    # Fill in the missing dates
+
+    for date_value in range(date_range, datePrecision):
+        if date not in date_dict:
+            add = make_datetime_rdf(date_value, datetime_precision)
+            ardf = ardf + add
 
 ardf = ardf + rdf_footer()
 srdf = srdf + rdf_footer()

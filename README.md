@@ -16,4 +16,4 @@ existing dates without proliferating copies of dates.
 
 1. VIVO screen-based processes create new dates.  Absolute Dates can be 
 run at any time to collapse back to canonical dates.
-
+1. Uses older RDF generating mechanisms.  WIll be updated to use rdflib.
